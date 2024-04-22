@@ -4,24 +4,21 @@ import axios from "axios";
 const Signup = () => {
   const [error, setError] = useState("");
 
-  const name = useRef();
   const email = useRef();
   const pwd = useRef();
 
-  function SignupDataHandler(e) {
+  function LoginDataHandler(e) {
     e.preventDefault();
-    const inputname = name.current.value;
     const inputemail = email.current.value;
     const inputpwd = pwd.current.value;
 
     const data = {
-      name: inputname,
       email: inputemail,
       password: inputpwd,
     };
 
      axios
-      .post("http://localhost:4000/signup", data)
+      .post("", data)
       .then(() => {
         console.log("data sent to server", data);
       })
@@ -35,23 +32,7 @@ const Signup = () => {
     <div className=" min-h-screen flex justify-center items-center p-8">
       <div className="border-4 border-orange-400 p-8 rounded-lg  shadow-md max-w-xl w-full bg-neutral-400 ">
         <h2 className="text-3xl font-bold mb-4 text-center ">Sign up</h2>
-        <form onSubmit={SignupDataHandler}>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
-            >
-              {" "}
-              Name{" "}
-            </label>
-            <input
-              className="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shad-outline "
-              placeholder="Your Name"
-              type="text"
-              id="name"
-              ref={name}
-            />
-          </div>
+        <form onSubmit={LoginDataHandler}>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
