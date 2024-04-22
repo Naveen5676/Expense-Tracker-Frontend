@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [error, setError] = useState("");
@@ -20,7 +21,7 @@ const Signup = () => {
       password: inputpwd,
     };
 
-     axios
+    axios
       .post("http://localhost:4000/signup", data)
       .then(() => {
         console.log("data sent to server", data);
@@ -88,6 +89,7 @@ const Signup = () => {
             </button>
           </div>
         </form>
+        <Link to="/login">Have an account? Click here to login</Link>
         <h3>{error}</h3>
       </div>
     </div>

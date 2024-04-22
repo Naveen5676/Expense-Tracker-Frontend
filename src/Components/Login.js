@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Login = () => {
   const [error, setError] = useState("");
 
   const email = useRef();
@@ -17,7 +18,7 @@ const Signup = () => {
       password: inputpwd,
     };
 
-     axios
+    axios
       .post("", data)
       .then(() => {
         console.log("data sent to server", data);
@@ -31,7 +32,7 @@ const Signup = () => {
   return (
     <div className=" min-h-screen flex justify-center items-center p-8">
       <div className="border-4 border-orange-400 p-8 rounded-lg  shadow-md max-w-xl w-full bg-neutral-400 ">
-        <h2 className="text-3xl font-bold mb-4 text-center ">Sign up</h2>
+        <h2 className="text-3xl font-bold mb-4 text-center ">Login</h2>
         <form onSubmit={LoginDataHandler}>
           <div className="mb-4">
             <label
@@ -69,10 +70,11 @@ const Signup = () => {
             </button>
           </div>
         </form>
+        <Link to="/signup">Don't have an account? Click here and signup</Link>
         <h3>{error}</h3>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Login;
