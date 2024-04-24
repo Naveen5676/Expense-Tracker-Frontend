@@ -9,6 +9,7 @@ const AddExpense = (props) => {
   const category = useRef();
 
   function addExpenseHandler(e) {
+    const token = localStorage.getItem('userId')
     const data = {
       amount: amount.current.value,
       description: description.current.value,
@@ -16,7 +17,7 @@ const AddExpense = (props) => {
     };
     e.preventDefault();
     axios
-      .post("http://localhost:4000/expense", data)
+      .post("http://localhost:4000/expense", data ,{headers : {"Authorization": token}})
       .then((result) => {
         alert("data added");
         setChangedData(!changeddata);
