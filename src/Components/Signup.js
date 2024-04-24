@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , useHistory} from "react-router-dom";
 
 const Signup = () => {
   const [error, setError] = useState("");
@@ -8,6 +8,8 @@ const Signup = () => {
   const name = useRef();
   const email = useRef();
   const pwd = useRef();
+
+  const history = useHistory()
 
   function SignupDataHandler(e) {
     e.preventDefault();
@@ -25,6 +27,7 @@ const Signup = () => {
       .post("http://localhost:4000/signup", data)
       .then(() => {
         console.log("data sent to server", data);
+        history.replace('/login')
       })
       .catch((err) => {
         console.log(err.message);

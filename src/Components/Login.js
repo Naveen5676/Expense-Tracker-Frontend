@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = () => {
   const [error, setError] = useState("");
 
   const email = useRef();
   const pwd = useRef();
+
+  const history = useHistory();
 
   function LoginDataHandler(e) {
     e.preventDefault();
@@ -19,13 +21,14 @@ const Login = () => {
     };
 
     axios
-      .post("", data)
+      .post("http://localhost:4000/login", data)
       .then(() => {
-        console.log("data sent to server", data);
+        alert("logged in successfully");
+        history.replace("/expense");
       })
       .catch((err) => {
-        console.log(err.message);
-        setError(err.message);
+        console.log(err.response.data.error);
+        setError(err.response.data.error);
       });
   }
 
@@ -47,6 +50,7 @@ const Login = () => {
               type="email"
               placeholder="your email"
               ref={email}
+              required="true"
             />
           </div>
           <div className="mb-4">
@@ -62,6 +66,7 @@ const Login = () => {
               type="password"
               placeholder="Your Password"
               ref={pwd}
+              required="true"
             />
           </div>
           <div className="mb-4">
