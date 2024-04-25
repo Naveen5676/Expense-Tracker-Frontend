@@ -24,7 +24,7 @@ const Login = () => {
       .post("http://localhost:4000/login", data)
       .then((response) => {
         alert("logged in successfully");
-        console.log(response.data)
+        //console.log(response.data)
         localStorage.setItem('userId', response.data.Token);
         history.replace("/expense");
       })

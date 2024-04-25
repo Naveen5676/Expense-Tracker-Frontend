@@ -41,8 +41,8 @@ const ShowExpense = (props) => {
       {loading ? (
         <h1>Loading</h1>
       ) : data.length > 0 ? (
-        <div className="flex ml-9">
-          <table>
+        <div className="flex justify-center ml-9">
+          <table className="table-auto md:border-separate border-collapse border-spacing-16">
             <thead>
               <tr>
                 <th>Expense Amount</th>

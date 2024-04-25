@@ -1,15 +1,20 @@
 import React, { Fragment } from "react";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
-import { Route, Switch , Redirect } from "react-router-dom";
+import { Route, Switch , Redirect , useLocation } from "react-router-dom";
 import AddExpense from "./Components/AddExpense";
 
+import Navbar from "./Components/Navbar";
+
 function App() {
+  const location = useLocation();
+  const excludepaths = ["/login" , "/signup"]
+  const isExcludedPath = excludepaths.includes(location.pathname)
+
   return (
     <Fragment >
       <div>
-
-      
+      {!isExcludedPath && <Navbar />}
       <Switch>
         <Route path='/' exact>
           <Redirect  to='/login'/>
