@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import ExpenseContext from "../store/expenseContent";
 
 const Navbar = () => {
+  const expensectx= useContext(ExpenseContext);
   const token = localStorage.getItem("userId");
   const [premiumuser, setPremiumUser] = useState(false);
   const [changepremium , setChangePremium] = useState(false);
+
 
   async function premiumHandler(e) {
     e.preventDefault();
@@ -29,6 +32,7 @@ const Navbar = () => {
         );
         alert("you are premium user now ");
         setChangePremium(!changepremium)
+        setPremiumUser(true);
       },
     };
     const rzp1 = new window.Razorpay(options);
@@ -60,26 +64,22 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/checkpremium", {
-        headers: { Authorization: token },
-      })
-      .then((res) => {
-        console.log('check premium',res.data);
-        setPremiumUser(res.data)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    expensectx.premiumapicall()
+    setPremiumUser(expensectx.ispremium)
   }, [changepremium]);
+
+  function leaderBoardHandler(e){
+    e.preventDefault();
+    expensectx.leaderBoard();
+  }
   return (
     <div className="navbar bg-base-100">
-      {!premiumuser && <button
+      {!expensectx.ispremium ? <button
         onClick={premiumHandler}
         className="btn btn-ghost border-2 text-xl"
       >
         Premium
-      </button>}
+      </button> : <div><h2>You are premium user now</h2> <button onClick={leaderBoardHandler}>Show LeaderBoard</button></div>}
     </div>
   );
 };
