@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import ExpenseContext from "../store/expenseContent";
 
 const ShowExpense = (props) => {
-  const token = localStorage.getItem('userId');
+  const token = localStorage.getItem("userId");
+  const expensectx = useContext(ExpenseContext);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +13,9 @@ const ShowExpense = (props) => {
   function deleteHandler(id, e) {
     e.preventDefault();
     axios
-      .delete(`http://localhost:4000/delete/${id}`, { headers: { "Authorization": token } })
+      .delete(`http://localhost:4000/delete/${id}`, {
+        headers: { Authorization: token },
+      })
       .then(() => {
         alert("Deleted");
         setChanges(!changes);
@@ -21,7 +25,10 @@ const ShowExpense = (props) => {
 
   useEffect(() => {
     if (token) {
-      axios.get("http://localhost:4000/showexpense", { headers: { "Authorization": token } })
+      axios
+        .get("http://localhost:4000/showexpense", {
+          headers: { Authorization: token },
+        })
         .then((result) => {
           //console.log(result.data);
           setData(result.data);
@@ -73,6 +80,33 @@ const ShowExpense = (props) => {
       ) : (
         <div>No Data Found</div>
       )}
+      {expensectx.leaderBoarddata.length > 0 &&
+        <div>
+          <h1 className="text-center mb-3">Leader Ship Board</h1>
+          <div className="flex justify-center">
+            <table className="table-auto border-black bg-gray-200 border-collapse border-spacing-10 mb-10">
+              <thead>
+                <tr>
+                  <th className="border border-black px-4 py-2">Name</th>
+                  <th className="border border-black px-4 py-2">Expenses</th>
+                </tr>
+              </thead>
+              <tbody>
+                {expensectx.leaderBoarddata.map((data, index) => (
+                  <tr key={index} className="border border-black">
+                    <td className="border border-black px-4 py-2">
+                      name :{data.name}
+                    </td>
+                    <td className="border border-black px-4 py-2">
+                      total Expense {data.total_cost}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
     </div>
   );
 };
