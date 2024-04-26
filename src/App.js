@@ -5,10 +5,11 @@ import { Route, Switch , Redirect , useLocation } from "react-router-dom";
 import AddExpense from "./Components/AddExpense";
 
 import Navbar from "./Components/Navbar";
+import ForgotPwd from "./Components/Forgotpwd";
 
 function App() {
   const location = useLocation();
-  const excludepaths = ["/login" , "/signup"]
+  const excludepaths = ["/login" , "/signup" , "/forgotpwd"]
   const isExcludedPath = excludepaths.includes(location.pathname)
 
   return (
@@ -24,6 +25,9 @@ function App() {
         </Route>
         <Route path='/signup'>
           <Signup />
+        </Route>
+        <Route path='/forgotpwd'>
+          <ForgotPwd/>
         </Route>
         <Route path='/expense'>
           <AddExpense/>

@@ -77,7 +77,8 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <Link to="/signup">Don't have an account? Click here and signup</Link>
+        <Link to="/signup">Don't have an account? Click here and signup</Link><br />
+        <Link to="/forgotpwd">Forgot your password ? Click here </Link>
         <h3>{error}</h3>
       </div>
     </div>
