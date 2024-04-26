@@ -5,7 +5,15 @@ const ForgotPwd = ()=>{
     const email = useRef()
     function forgotpwdHandler(e){
         e.preventDefault();
-        axios.post()
+        const data = {
+          email: email.current.value
+        }
+        axios.post('http://localhost:4000/forgotpassword' , data)
+        .then(()=>{
+          console.log('forgot pwd request sent to backend');
+        }).catch((err)=>{
+          console.log('forgot pwd sending api error', err);
+        })
 
     }
 

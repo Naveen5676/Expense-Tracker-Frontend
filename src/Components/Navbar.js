@@ -79,7 +79,7 @@ const Navbar = () => {
         className="btn btn-ghost border-2 text-xl"
       >
         Premium
-      </button> : <div><h2>You are premium user now</h2> <button onClick={leaderBoardHandler}>Show LeaderBoard</button></div>}
+      </button> : <div><h2>You are premium user now</h2> <button onClick={leaderBoardHandler}>Show LeaderBoard</button>  <button>Download report </button></div>}
     </div>
   );
 };
