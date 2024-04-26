@@ -98,7 +98,11 @@ const ShowExpense = (props) => {
                       name :{data.name}
                     </td>
                     <td className="border border-black px-4 py-2">
+<<<<<<< HEAD
                       total Expense {data.totalexpense}
+=======
+                      total Expense {data.total_cost}
+>>>>>>> 6071d2eaccc2548aab16f4b2b8f492dd93434c33
                     </td>
                   </tr>
                 ))}
