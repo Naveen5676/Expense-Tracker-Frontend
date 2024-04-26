@@ -101,7 +101,7 @@ const ShowExpense = (props) => {
 <<<<<<< HEAD
                       total Expense {data.totalexpense}
 =======
-                      total Expense {data.total_cost}
+                      total Expense {data.totalexpense}
 >>>>>>> 6071d2eaccc2548aab16f4b2b8f492dd93434c33
                     </td>
                   </tr>
