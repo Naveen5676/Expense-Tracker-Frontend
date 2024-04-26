@@ -10,6 +10,7 @@ const ShowExpense = (props) => {
   const [loading, setLoading] = useState(true);
   const [changes, setChanges] = useState(true);
 
+
   function deleteHandler(id, e) {
     e.preventDefault();
     axios
@@ -45,6 +46,7 @@ const ShowExpense = (props) => {
 
   return (
     <div>
+      {console.log('oldurldata',expensectx.oldurldata)}
       {loading ? (
         <h1>Loading</h1>
       ) : data.length > 0 ? (
@@ -107,6 +109,34 @@ const ShowExpense = (props) => {
           </div>
         </div>
       }
+       {expensectx.oldurldata.length > 0 &&
+        <div>
+          <h1 className="text-center mb-3">Old Url Table</h1>
+          <div className="flex justify-center">
+            <table className="table-auto border-black bg-gray-200 border-collapse border-spacing-10 mb-10">
+              <thead>
+                <tr>
+                  <th className="border border-black px-4 py-2">uiser id</th>
+                  <th className="border border-black px-4 py-2">Link </th>
+                </tr>
+              </thead>
+              <tbody>
+                {expensectx.oldurldata.map((data, index) => (
+                  <tr key={index} className="border border-black">
+                    <td className="border border-black px-4 py-2">
+                      {data.userdatumId}
+                    </td>
+                    <td className="border border-black px-4 py-2">
+                       {data.downloadurl}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+
     </div>
   );
 };

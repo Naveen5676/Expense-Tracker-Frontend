@@ -6,6 +6,7 @@ const ExpenseProvider = (props) => {
     const token = localStorage.getItem("userId");
     const [leaderboarddata, setLeaderboardData] = useState([]);
     const [premiumuser, setPremiumUser] = useState(false);
+    const [oldurl , setOldUrl]=useState([]);
 
     const leaderBoardHandler = async () => {
         try {
@@ -30,11 +31,19 @@ const ExpenseProvider = (props) => {
 
     }
 
+    const getoldurlHandler= async()=>{
+       const data = await axios.get('http://localhost:4000/getallpreviousurl' , {headers: { Authorization: token }})
+       setOldUrl(data.data)
+    }
+
     const expensestore = {
         leaderBoarddata: leaderboarddata,
         leaderBoard: leaderBoardHandler,
         ispremium : premiumuser,
-        premiumapicall: premiumHandler
+        premiumapicall: premiumHandler,
+        oldurldata:oldurl,
+        getoldurl:getoldurlHandler
+
 
     };
 

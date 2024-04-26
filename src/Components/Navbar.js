@@ -3,10 +3,10 @@ import React, { useEffect, useState, useContext } from "react";
 import ExpenseContext from "../store/expenseContent";
 
 const Navbar = () => {
-  const expensectx= useContext(ExpenseContext);
+  const expensectx = useContext(ExpenseContext);
   const token = localStorage.getItem("userId");
   const [premiumuser, setPremiumUser] = useState(false);
-  const [changepremium , setChangePremium] = useState(false);
+  const [changepremium, setChangePremium] = useState(false);
 
 
   async function premiumHandler(e) {
@@ -31,7 +31,7 @@ const Navbar = () => {
           { headers: { Authorization: token } }
         );
         alert("you are premium user now ");
-        setChangePremium(!changepremium)
+        setChangePremium(!changepremium);
         setPremiumUser(true);
       },
     };
@@ -64,22 +64,52 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    expensectx.premiumapicall()
-    setPremiumUser(expensectx.ispremium)
+    expensectx.premiumapicall();
+    setPremiumUser(expensectx.ispremium);
   }, [changepremium]);
 
-  function leaderBoardHandler(e){
+  function leaderBoardHandler(e) {
     e.preventDefault();
     expensectx.leaderBoard();
   }
+
+  function  download(){
+    axios.get('http://localhost:4000/downloadexpense', {headers : {"Authorization" : token}}).then((response)=>{
+      if(response.status==200){
+        //the bcakend is essentially sending a download link
+        //  which if we open in browser, the file would download
+        var a = document.createElement("a");
+        a.href = response.data.fileURL;
+        a.download = 'myexpense.csv';
+        a.click()
+      }else{
+        console.log(response.data.message)
+      }
+    })
+  }
+
+  function geturl(e){
+    e.preventDefault()
+    expensectx.getoldurl()
+
+  }
   return (
     <div className="navbar bg-base-100">
-      {!expensectx.ispremium ? <button
-        onClick={premiumHandler}
-        className="btn btn-ghost border-2 text-xl"
-      >
-        Premium
-      </button> : <div><h2>You are premium user now</h2> <button onClick={leaderBoardHandler}>Show LeaderBoard</button>  <button>Download report </button></div>}
+      {!expensectx.ispremium ? (
+        <button
+          onClick={premiumHandler}
+          className="btn btn-ghost border-2 text-xl"
+        >
+          Premium
+        </button>
+      ) : (
+        <div>
+          <h2>You are premium user now</h2>{" "}
+          <button onClick={leaderBoardHandler}>Show LeaderBoard</button>{" "}
+          <button onClick={download}>Download report </button>{" "}
+          <button onClick={geturl}>Show previous Urls</button>
+        </div>
+      )}
     </div>
   );
 };

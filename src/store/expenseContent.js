@@ -4,7 +4,9 @@ const ExpenseStore = React.createContext({
     leaderBoarddata:[],
     leaderBoard:async ()=>{},
     ispremium:false,
-    premiumapicall:()=>{}
+    premiumapicall:()=>{},
+    oldurldata:[],
+    getoldurl:()=>{}
 })
 
 export default ExpenseStore
