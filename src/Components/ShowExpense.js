@@ -7,9 +7,52 @@ const ShowExpense = (props) => {
   const expensectx = useContext(ExpenseContext);
 
   const [data, setData] = useState([]);
+  const [pagination , setPagination]=useState();
   const [loading, setLoading] = useState(true);
   const [changes, setChanges] = useState(true);
 
+  // useEffect(async () => {
+  //   try{
+  //   const page = 1
+  //   const responsedata = await axios.get(`http://localhost:4000/getexpenses?page=${page}` , {headers: { Authorization: token }})
+  //   setData(responsedata.data)
+  //   setPagination(responsedata)
+  //   }
+  //   catch(error){
+  //     console.log(error)
+  //   }
+  // },[props.changedData, changes, token])
+
+  // async function getProducts(page) {
+  //   try {
+  //     const responsedata = await axios.get(`http://localhost:4000/getexpenses?page=${page}`, {headers: { Authorization: token }});
+  //     setData(responsedata.data);
+  //     setPagination(responsedata.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  async function fetchData(page = 1) {
+    try {
+      const responsedata = await axios.get(`http://localhost:4000/getexpenses?page=${page}`, {headers: { Authorization: token }});
+      setData(responsedata.data);
+      setPagination(responsedata.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  useEffect(() => {
+    fetchData();
+  }, [props.changedData, changes, token]);
+  
+  async function getProducts(page) {
+    await fetchData(page);
+  }
+  
+  
 
   function deleteHandler(id, e) {
     e.preventDefault();
@@ -24,32 +67,32 @@ const ShowExpense = (props) => {
       .catch((err) => console.log(err));
   }
 
-  useEffect(() => {
-    if (token) {
-      axios
-        .get("http://localhost:4000/showexpense", {
-          headers: { Authorization: token },
-        })
-        .then((result) => {
-          //console.log(result.data);
-          setData(result.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false); // Update loading state even on error
-        });
-    } else {
-      setLoading(false); // Update loading state when token is not available
-    }
-  }, [props.changedData, changes, token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     axios
+  //       .get("http://localhost:4000/showexpense", {
+  //         headers: { Authorization: token },
+  //       })
+  //       .then((result) => {
+  //         //console.log(result.data);
+  //         setData(result.data);
+  //         setLoading(false);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         setLoading(false); // Update loading state even on error
+  //       });
+  //   } else {
+  //     setLoading(false); // Update loading state when token is not available
+  //   }
+  // }, [props.changedData, changes, token]);
 
   return (
     <div>
       {console.log('oldurldata',expensectx.oldurldata)}
       {loading ? (
         <h1>Loading</h1>
-      ) : data.length > 0 ? (
+      ) : data.products.length > 0 ? (
         <div className="flex justify-center ml-9">
           <table className="table-auto md:border-separate border-collapse border-spacing-16">
             <thead>
@@ -61,7 +104,7 @@ const ShowExpense = (props) => {
               </tr>
             </thead>
             <tbody>
-              {data.map((info) => (
+              {data.products.map((info) => (
                 <tr key={info.id}>
                   <td>{info.expenseamt}</td>
                   <td>{info.description}</td>
@@ -82,6 +125,14 @@ const ShowExpense = (props) => {
       ) : (
         <div>No Data Found</div>
       )}
+     {data.products  &&
+  <div>
+    {pagination.hasPrevousPage && <button className="px-2 py-4 "  onClick={() => { getProducts(pagination.previousPage) }}>{pagination.previousPage}</button>}
+    <button className="px-2 py-4 " onClick={() => { getProducts(pagination.currentPage) }}>{pagination.currentPage}</button>
+    {pagination.hasNextPage && <button onClick={() => { getProducts(pagination.nextPage) }}>{pagination.nextPage}</button>}
+  </div>
+}
+
       {expensectx.leaderBoarddata.length > 0 &&
         <div>
           <h1 className="text-center mb-3">Leader Ship Board</h1>
@@ -136,7 +187,6 @@ const ShowExpense = (props) => {
           </div>
         </div>
       }
-
     </div>
   );
 };
