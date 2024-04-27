@@ -10,6 +10,7 @@ const ShowExpense = (props) => {
   const [pagination , setPagination]=useState();
   const [loading, setLoading] = useState(true);
   const [changes, setChanges] = useState(true);
+  
 
   // useEffect(async () => {
   //   try{
@@ -32,10 +33,11 @@ const ShowExpense = (props) => {
   //     console.error(error);
   //   }
   // }
-
+  
   async function fetchData(page = 1) {
     try {
-      const responsedata = await axios.get(`http://localhost:4000/getexpenses?page=${page}`, {headers: { Authorization: token }});
+      const rowsperpage = localStorage.getItem('rowsPerPage')
+      const responsedata = await axios.get(`http://localhost:4000/getexpenses?page=${page}&rowsperpage=${rowsperpage}`, {headers: { Authorization: token }});
       setData(responsedata.data);
       setPagination(responsedata.data);
       setLoading(false);
@@ -46,7 +48,7 @@ const ShowExpense = (props) => {
   
   useEffect(() => {
     fetchData();
-  }, [props.changedData, changes, token]);
+  }, [props.changedData, changes, token , ]);
   
   async function getProducts(page) {
     await fetchData(page);
@@ -87,8 +89,24 @@ const ShowExpense = (props) => {
   //   }
   // }, [props.changedData, changes, token]);
 
+  function handleRowsChange(event) {
+    event.preventDefault()
+    const selectedRowsPerPage = event.target.value;
+    localStorage.setItem('rowsPerPage', selectedRowsPerPage);
+    setChanges(!changes)
+  }
+
   return (
     <div>
+      <form onChange={handleRowsChange}>
+      <label>Rows per pages</label>
+      <select>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+      </form>
       {console.log('oldurldata',expensectx.oldurldata)}
       {loading ? (
         <h1>Loading</h1>
