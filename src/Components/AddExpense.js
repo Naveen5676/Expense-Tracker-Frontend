@@ -29,37 +29,45 @@ const AddExpense = (props) => {
 
   return (
     <div className="mr-10">
-      <div className="border-2 border-black p-5 m-10 flex justify-center ">
-        <form onSubmit={addExpenseHandler}>
-          <label>Choose Expense Amount:</label>
+    <div className="border-2 border-black p-5 m-10 flex justify-center">
+      <form onSubmit={addExpenseHandler} className="flex lg:flex-row flex-wrap flex-col justify-center">
+        <div className="mb-3 mr-3">
+          <label className="mr-3">Choose Expense Amount:</label>
           <input
             type="number"
-            className="border-2 border-black px-3 "
+            className="border-2 border-black px-3"
             ref={amount}
           />
-          <label>Choose Description:</label>
+        </div>
+        <div className="mb-3 mr-3">
+          <label className="mr-3">Choose Description:</label>
           <input
             type="text"
             className="border-2 border-black px-3"
             ref={description}
           />
-          <label>Choose Category:</label>
+        </div>
+        <div className="mb-3 mr-3">
+          <label className="mr-3">Choose Category:</label>
           <select className="border-2 border-black px-3" ref={category}>
             <option>Fuel</option>
             <option>Food</option>
             <option>Electricity</option>
             <option>Movie</option>
           </select>
-          <button
-            className="bg-orange-500 border-2 px-2 py-1 m-3 "
-            type="submit"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
-      <ShowExpense changedData={changeddata}/>
+        </div>
+        <button
+          className="bg-orange-500 border-2 px-2 py-1"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
     </div>
+    <ShowExpense changedData={changeddata}/>
+  </div>
+  
+  
   );
 };
 export default AddExpense;

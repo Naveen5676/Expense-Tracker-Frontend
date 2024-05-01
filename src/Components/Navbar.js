@@ -94,20 +94,20 @@ const Navbar = () => {
 
   }
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-amber-300 px-5 py-5">
       {!expensectx.ispremium ? (
-        <button
+        <button 
           onClick={premiumHandler}
-          className="btn btn-ghost border-2 text-xl"
+          className="btn btn-ghost border-2 text-xl text-white bg-slate-600 hover:bg-gray-800 px-3 py-2 "
         >
           Premium
         </button>
       ) : (
         <div>
-          <h2>You are premium user now</h2>{" "}
-          <button onClick={leaderBoardHandler}>Show LeaderBoard</button>{" "}
-          <button onClick={download}>Download report </button>{" "}
-          <button onClick={geturl}>Show previous Urls</button>
+          <h2 className="text-xl mb-2">You are premium user now</h2>{" "}
+          <button onClick={leaderBoardHandler} className="mr-2 btn btn-ghost border-2 text-md text-white bg-slate-600 hover:bg-gray-800 px-1 py-1">Show LeaderBoard</button>{" "}
+          <button onClick={download} className="mr-2 btn btn-ghost border-2 text-md text-white bg-slate-600 hover:bg-gray-800 px-1 py-1">Download report </button>{" "}
+          <button onClick={geturl} className="btn btn-ghost border-2 text-md text-white bg-slate-600 hover:bg-gray-800 px-1 py-1">Show previous Urls</button>
         </div>
       )}
     </div>
