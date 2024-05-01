@@ -15,7 +15,7 @@ const ShowExpense = (props) => {
   // useEffect(async () => {
   //   try{
   //   const page = 1
-  //   const responsedata = await axios.get(`http://localhost:4000/getexpenses?page=${page}` , {headers: { Authorization: token }})
+  //   const responsedata = await axios.get(`http://54.234.47.97/getexpenses?page=${page}` , {headers: { Authorization: token }})
   //   setData(responsedata.data)
   //   setPagination(responsedata)
   //   }
@@ -26,7 +26,7 @@ const ShowExpense = (props) => {
 
   // async function getProducts(page) {
   //   try {
-  //     const responsedata = await axios.get(`http://localhost:4000/getexpenses?page=${page}`, {headers: { Authorization: token }});
+  //     const responsedata = await axios.get(`http://54.234.47.97/getexpenses?page=${page}`, {headers: { Authorization: token }});
   //     setData(responsedata.data);
   //     setPagination(responsedata.data);
   //   } catch (error) {
@@ -37,7 +37,7 @@ const ShowExpense = (props) => {
   async function fetchData(page = 1) {
     try {
       const rowsperpage = localStorage.getItem('rowsPerPage')
-      const responsedata = await axios.get(`http://localhost:4000/getexpenses?page=${page}&rowsperpage=${rowsperpage}`, {headers: { Authorization: token }});
+      const responsedata = await axios.get(`http://54.234.47.97/getexpenses?page=${page}&rowsperpage=${rowsperpage}`, {headers: { Authorization: token }});
       setData(responsedata.data);
       setPagination(responsedata.data);
       setLoading(false);
@@ -59,7 +59,7 @@ const ShowExpense = (props) => {
   function deleteHandler(id, e) {
     e.preventDefault();
     axios
-      .delete(`http://localhost:4000/delete/${id}`, {
+      .delete(`http://54.234.47.97/delete/${id}`, {
         headers: { Authorization: token },
       })
       .then(() => {
@@ -72,7 +72,7 @@ const ShowExpense = (props) => {
   // useEffect(() => {
   //   if (token) {
   //     axios
-  //       .get("http://localhost:4000/showexpense", {
+  //       .get("http://54.234.47.97/showexpense", {
   //         headers: { Authorization: token },
   //       })
   //       .then((result) => {

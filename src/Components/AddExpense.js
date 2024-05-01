@@ -17,7 +17,7 @@ const AddExpense = (props) => {
     };
     e.preventDefault();
     axios
-      .post("http://localhost:4000/expense", data ,{headers : {"Authorization": token}})
+      .post("http://54.234.47.97/expense", data ,{headers : {"Authorization": token}})
       .then((result) => {
         alert("data added");
         setChangedData(!changeddata);

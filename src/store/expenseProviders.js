@@ -10,7 +10,7 @@ const ExpenseProvider = (props) => {
 
     const leaderBoardHandler = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/showleaderboard');
+            const response = await axios.get('http://54.234.47.97/showleaderboard');
             setLeaderboardData(response.data); // Assuming response contains the data you need
         } catch (error) {
             console.error("Error fetching leaderboard data:", error);
@@ -18,7 +18,7 @@ const ExpenseProvider = (props) => {
     };
 
     const premiumHandler=()=>{
-        axios.get("http://localhost:4000/checkpremium", {
+        axios.get("http://54.234.47.97/checkpremium", {
         headers: { Authorization: token },
       })
       .then((res) => {
@@ -32,7 +32,7 @@ const ExpenseProvider = (props) => {
     }
 
     const getoldurlHandler= async()=>{
-       const data = await axios.get('http://localhost:4000/getallpreviousurl' , {headers: { Authorization: token }})
+       const data = await axios.get('http://54.234.47.97/getallpreviousurl' , {headers: { Authorization: token }})
        setOldUrl(data.data)
     }
 

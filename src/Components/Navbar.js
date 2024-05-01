@@ -12,7 +12,7 @@ const Navbar = () => {
   async function premiumHandler(e) {
     e.preventDefault();
 
-    let response = await axios.get("http://localhost:4000/premiummembership", {
+    let response = await axios.get("http://54.234.47.97/premiummembership", {
       headers: { Authorization: token },
     });
     //console.log(response)
@@ -23,7 +23,7 @@ const Navbar = () => {
       handler: async function (response) {
         console.log("header====> ", response);
         await axios.post(
-          "http://localhost:4000/updatetransactionstatus",
+          "http://54.234.47.97/updatetransactionstatus",
           {
             order_id: options.order_id,
             payment_id: response.razorpay_payment_id,
@@ -48,7 +48,7 @@ const Navbar = () => {
       // alert(response.error.metadata.payment_id);
       axios
         .post(
-          "http://localhost:4000/failedtransactionstatus",
+          "http://54.234.47.97/failedtransactionstatus",
           {
             order_id: options.order_id,
           },
@@ -74,7 +74,7 @@ const Navbar = () => {
   }
 
   function  download(){
-    axios.get('http://localhost:4000/downloadexpense', {headers : {"Authorization" : token}}).then((response)=>{
+    axios.get('http://54.234.47.97/downloadexpense', {headers : {"Authorization" : token}}).then((response)=>{
       if(response.status==200){
         //the bcakend is essentially sending a download link
         //  which if we open in browser, the file would download

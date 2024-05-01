@@ -24,7 +24,7 @@ const Signup = () => {
     };
 
     axios
-      .post("http://localhost:4000/signup", data)
+      .post("http://54.234.47.97/signup", data)
       .then(() => {
         console.log("data sent to server", data);
         history.replace('/login')

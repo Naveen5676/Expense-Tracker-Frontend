@@ -8,7 +8,7 @@ const ForgotPwd = ()=>{
         const data = {
           email: email.current.value
         }
-        axios.post('http://localhost:4000/forgotpassword' , data)
+        axios.post('http://54.234.47.97/forgotpassword' , data)
         .then(()=>{
           console.log('forgot pwd request sent to backend');
         }).catch((err)=>{
