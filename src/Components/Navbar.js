@@ -8,7 +8,7 @@ const Navbar = () => {
   const [premiumuser, setPremiumUser] = useState(false);
   const [changepremium, setChangePremium] = useState(false);
 
-
+  console.log('nav bar token' , token)
   async function premiumHandler(e) {
     e.preventDefault();
 
@@ -64,8 +64,24 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    expensectx.premiumapicall();
-    setPremiumUser(expensectx.ispremium);
+    const premiumHandler=()=>{
+      console.log('inside they context api token',token);
+      axios.get("http://54.234.47.97/checkpremium", {
+      headers: { Authorization: token },
+    })
+    .then((res) => {
+      //console.log('check premium',res.data);
+      {console.log('indide context api', res)}
+      setPremiumUser(res.data)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  }
+  premiumHandler()
+    // expensectx.premiumapicall();
+    // setPremiumUser(expensectx.ispremium);
   }, [changepremium]);
 
   function leaderBoardHandler(e) {
@@ -95,7 +111,9 @@ const Navbar = () => {
   }
   return (
     <div className="navbar bg-amber-300 px-5 py-5">
-      {!expensectx.ispremium ? (
+      {console.log('expensectx.ispremium',expensectx.ispremium)}
+      {console.log('premium in state', premiumuser )}
+      {!premiumuser ? (
         <button 
           onClick={premiumHandler}
           className="btn btn-ghost border-2 text-xl text-white bg-slate-600 hover:bg-gray-800 px-3 py-2 "

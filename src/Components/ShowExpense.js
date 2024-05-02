@@ -50,6 +50,7 @@ const ShowExpense = (props) => {
 
   useEffect(() => {
     fetchData();
+    //expensectx.premiumapicall()
   }, [props.changedData, changes, token]);
 
   async function getProducts(page) {

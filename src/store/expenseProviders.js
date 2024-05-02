@@ -5,7 +5,7 @@ import axios from "axios";
 const ExpenseProvider = (props) => {
     const token = localStorage.getItem("userId");
     const [leaderboarddata, setLeaderboardData] = useState([]);
-    const [premiumuser, setPremiumUser] = useState(false);
+    // const [premiumuser, setPremiumUser] = useState(false);
     const [oldurl , setOldUrl]=useState([]);
 
     const leaderBoardHandler = async () => {
@@ -17,19 +17,21 @@ const ExpenseProvider = (props) => {
         }
     };
 
-    const premiumHandler=()=>{
-        axios.get("http://54.234.47.97/checkpremium", {
-        headers: { Authorization: token },
-      })
-      .then((res) => {
-        //console.log('check premium',res.data);
-        setPremiumUser(res.data)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // const premiumHandler=()=>{
+    //     console.log('inside they context api token',token);
+    //     axios.get("http://54.234.47.97/checkpremium", {
+    //     headers: { Authorization: token },
+    //   })
+    //   .then((res) => {
+    //     //console.log('check premium',res.data);
+    //     {console.log('indide context api', res)}
+    //     setPremiumUser(res.data)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
-    }
+    // }
 
     const getoldurlHandler= async()=>{
        const data = await axios.get('http://54.234.47.97/getallpreviousurl' , {headers: { Authorization: token }})
@@ -39,8 +41,8 @@ const ExpenseProvider = (props) => {
     const expensestore = {
         leaderBoarddata: leaderboarddata,
         leaderBoard: leaderBoardHandler,
-        ispremium : premiumuser,
-        premiumapicall: premiumHandler,
+        // ispremium : premiumuser,
+        // premiumapicall: premiumHandler,
         oldurldata:oldurl,
         getoldurl:getoldurlHandler
 
